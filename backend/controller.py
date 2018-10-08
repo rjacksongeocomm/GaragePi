@@ -141,12 +141,12 @@ class GaragePiController:
 
     def get_cpu_temperature(self) -> float:
         res = os.popen('cat /sys/class/thermal/thermal_zone0/temp').readline()
-        app.logger.debug('Checked CPU temp and got: %r' % res)
+        #app.logger.debug('Checked CPU temp and got: %r' % res)
         return float(res) / 1000.0
 
     def get_gpu_temperature(self) -> float:
         res = os.popen('vcgencmd measure_temp').readline()
-        app.logger.debug('Checked GPU temp and got: %r' % res)
+        #app.logger.debug('Checked GPU temp and got: %r' % res)
         return float(res.replace("temp=","").replace("'C\n",""))
 
     def trigger_relay(self, user_agent: str, login: str):
