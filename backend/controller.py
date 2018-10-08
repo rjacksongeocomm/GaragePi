@@ -23,10 +23,10 @@ class GaragePiController:
         self.__db = GarageDb(app.instance_path, app.resource_path)
 
         # Get initial reed state and subscribe to events
-        GPIO.setup(app.config['REED_PIN'], GPIO.IN)
-        GPIO.add_event_detect(app.config['REED_PIN'], GPIO.BOTH, callback=self.door_opened_or_closed)
-        self.__door_state = None                            # 1 for open, 0 for closed, None for uninitialized
-        self.door_opened_or_closed(app.config['REED_PIN'])  # force update
+        #GPIO.setup(app.config['REED_PIN'], GPIO.IN)
+        #GPIO.add_event_detect(app.config['REED_PIN'], GPIO.BOTH, callback=self.door_opened_or_closed)
+        self.__door_state = 0 #None                            # 1 for open, 0 for closed, None for uninitialized
+        #self.door_opened_or_closed(app.config['REED_PIN'])  # force update
 
         # Set up warning timer if there's a setting
         if app.config['DOOR_OPEN_WARNING_TIME']:
@@ -161,8 +161,7 @@ class GaragePiController:
             # Relay triggers on low so just setting as output will trigger
             # and closing will switch back.
         app.logger.debug('__relay_lock')
-        app.logger.debug('Relay pin {0}'.format(app.config['RELAY_PIN']))
-        GPIO.setmode(GPIO.BOARD)
+        app.logger.debug('Relay pin {0}'.format(app.config['RELAY_PIN']))        
         GPIO.setup(7, GPIO.OUT)
         GPIO.output(7,True)  
         time.sleep(0.5)
