@@ -56,7 +56,7 @@ try:
 
     # Set up GPIO using BCM numbering
     logger.info('Setting GPIO numbering')
-    GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
 except:
     logger.exception('Exception during startup actions')
     raise
