@@ -160,7 +160,9 @@ class GaragePiController:
         with self.__relay_lock:
             # Relay triggers on low so just setting as output will trigger
             # and closing will switch back.
-            GPIO.setup(app.config['RELAY_PIN'], GPIO.OUT)
+            app.logger.debug('Relay pin {0}'.format(app.config['RELAY_PIN']))
+            GPIO.setmode(GPIO.BOARD)
+            GPIO.setup(7, GPIO.OUT)
             GPIO.output(7,True)  
             time.sleep(0.5)
             GPIO.output(7,False)  
