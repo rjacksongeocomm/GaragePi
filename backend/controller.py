@@ -152,20 +152,21 @@ class GaragePiController:
     def trigger_relay(self, user_agent: str, login: str):
         """ Triggers the relay for a short period. """
         app.logger.debug('Triggering relay for {0} ({1})'.format(login, user_agent))
-        self.__db.record_event(user_agent if user_agent else 'UNKNOWN',
-                               login if login else 'UNKNOWN',
-                               'SwitchActivated',
-                               'Door switch activated when in {0} state.'.format(self.get_status().status_text))
+        #self.__db.record_event(user_agent if user_agent else 'UNKNOWN',
+        #                       login if login else 'UNKNOWN',
+        #                       'SwitchActivated',
+        #                       'Door switch activated when in {0} state.'.format(self.get_status().status_text))
 
-        with self.__relay_lock:
+        #with self.__relay_lock:
             # Relay triggers on low so just setting as output will trigger
             # and closing will switch back.
-            app.logger.debug('Relay pin {0}'.format(app.config['RELAY_PIN']))
-            GPIO.setmode(GPIO.BOARD)
-            GPIO.setup(7, GPIO.OUT)
-            GPIO.output(7,True)  
-            time.sleep(0.5)
-            GPIO.output(7,False)  
+        app.logger.debug('__relay_lock')
+        app.logger.debug('Relay pin {0}'.format(app.config['RELAY_PIN']))
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(7, GPIO.OUT)
+        GPIO.output(7,True)  
+        time.sleep(0.5)
+        GPIO.output(7,False)  
 
     def check_door_open_for_warning(self):
         if self.__door_state and app.warning_event is not None:
